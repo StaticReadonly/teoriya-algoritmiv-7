@@ -1,4 +1,4 @@
-﻿using Classes;
+using Classes;
 
 namespace Lab7
 {
@@ -61,8 +61,10 @@ namespace Lab7
                 list.AddLast(rand.Next(1000)); 
             }
 
-            return list;
+            return DoublyLinkedList.SortDoublyLinkedList(list);
         }
+
+
     }
     
 }
