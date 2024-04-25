@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace Classes
 {
@@ -87,6 +87,9 @@ namespace Classes
             Value = value;
             Index = index;
         }
+
+        
+
     }
 
     public class DoublyLinkedList
@@ -113,6 +116,64 @@ namespace Classes
 
             Count++;
         }
+        private static DoublyLinkedListNode InsertNodeIntoSortedDoublyLinkedList(DoublyLinkedListNode sorted, DoublyLinkedListNode newNode)
+        {
+            if (sorted == null)
+            {
+                newNode.Next = null;
+                newNode.Previous = null;
+                return newNode;
+            }
+
+            if (newNode.Value <= sorted.Value)
+            {
+                newNode.Next = sorted;
+                newNode.Previous = null;
+                sorted.Previous = newNode;
+                return newNode;
+            }
+
+            DoublyLinkedListNode current = sorted;
+            while (current.Next != null && current.Next.Value < newNode.Value)
+            {
+                current = current.Next;
+            }
+
+            newNode.Next = current.Next;
+            newNode.Previous = current;
+            if (current.Next != null)
+            {
+                current.Next.Previous = newNode;
+            }
+            current.Next = newNode;
+
+            return sorted;
+        }
+
+        public static DoublyLinkedList SortDoublyLinkedList(DoublyLinkedList list)
+        {
+            if (list == null || list.Head == null || list.Head.Next == null)
+            {
+                return list;
+            }
+
+            DoublyLinkedListNode sorted = null;
+            DoublyLinkedListNode current = list.Head;
+
+            while (current != null)
+            {
+                DoublyLinkedListNode next = current.Next;
+                sorted = InsertNodeIntoSortedDoublyLinkedList(sorted, current);
+                current = next;
+            }
+
+            list.Head = sorted;
+            return list;
+        }
+
     }
+
+    
+
 }
 
